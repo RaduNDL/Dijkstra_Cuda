@@ -1,4 +1,4 @@
-﻿#include <cuda_runtime.h>
+#include <cuda_runtime.h>
 #include <device_launch_parameters.h>
 #include <curand_kernel.h>
 #include <iostream>
@@ -118,7 +118,7 @@ static void dijkstraGPU(Graph& graph, int src, vector<int>& dist) {
             CUDA_CHECK(cudaGetLastError());
         }
         CUDA_CHECK(cudaMemcpy(h_fin, d_fin, graph.numVertices * sizeof(bool), cudaMemcpyDeviceToHost));
-    } while (std::any_of(h_fin, h_fin + graph.numVertices, [](bool v) { return v; }));
+    } while (any_of(h_fin, h_fin + graph.numVertices, [](bool v) { return v; }));
     CUDA_CHECK(cudaMemcpy(dist.data(), d_dist, graph.numVertices * sizeof(int), cudaMemcpyDeviceToHost));
     cudaFree(d_fin);
     cudaFree(d_dist);
